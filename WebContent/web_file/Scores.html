@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息管理系统</title>
+    <link rel="stylesheet" type="text/css" href="student.css" />
+    <script type="text/javascript" src="bootstrap.js"></script>
+    <style>
+        a:hover{
+            color: #2e56c3;
+        }
+        a{
+            color: rgba(1, 2, 6, 0.8);
+        }
+        button:hover{
+            color: #fffdf4;
+        }
+        .container{
+            border:0 solid darkslategray;
+            border-radius:30px;
+            width: 95%;
+            height: 700px;
+            background-color: lightblue;
+            background-color: rgba(195, 208, 212, 0.5);
+            margin-left: 40px;
+            margin-top: 25px;
+            box-shadow: 5px 5px 20px rgba(200, 214, 255, 0.72);
+        }
+        #links{
+            border-right: 1.5px solid black;
+            height: 700px;
+            float: left;
+        }
+        #content{
+            float: right;
+            background-color: rgba(208, 212, 202, 0.2);
+            width: 87%;
+            height: 700px;
+            border-radius: 0 30px 30px 0;
+        }
+        .img{
+            margin-left: 13px;
+            margin-top: 10px;
+            width: 150px;
+            height: 150px;
+            border-radius: 30px;
+        }
+
+        .gz{
+            position: absolute;
+            top:630px;
+            left: 1320px;
+        }
+        #main{
+            width: 400px;
+            height: 300px;
+            margin-left: 420px;
+            margin-top: 80px;
+            text-align: center;
+        }
+        .biaoti{
+             font-size: 35px;
+             text-align: center;
+         }
+        #bu{
+            background: pink;
+            width: 100px;
+            height: 40px;
+            margin-left: 40px;
+            margin-top:50px;
+            font-size: 15px;
+            border-color: pink;"
+        }
+        #bu input:hover{
+            color: #fffdf4;
+        }
+    </style>
+</head>
+<body bgcolor="#a9a9a9" background="img/home.jpg">
+
+<div class="container" >
+    <!-- 页面导航 -->
+    <div id="links">
+        <img class="img" src="img/logo.jpg" />
+        <div class="box" style="margin-left: 35px;">
+            <table width="149.5px" height="200px">
+                <tr>
+                    <td> <a href="Insert_news.html" style="text-decoration: none;"> <h3>A:添加学生信息</h3></a> </td>
+                </tr>
+                <tr>
+                    <td> <a href="Scores.html" style="text-decoration: none;"> <h3>B:添加成绩</h3> </a> </td>
+                </tr>
+                <tr>
+                    <td> <a href="Find.jsp" style="text-decoration: none;"> <h3>C:查找成绩</h3> </a> </td>
+                </tr>
+                <tr>
+                    <td> <a href="Pic.jsp" style="text-decoration: none;"> <h3>D:成绩柱状图</h3> </a> </td>
+                </tr>
+                <tr>
+                	<td> <a href="Print.jsp" style="text-decoration: none;"> <h3>E:学生报表</h3> </a> </td>
+                </tr>
+                <tr>
+               		<td> <a href="Reward.html" style="text-decoration: none;"> <h3>F:奖惩情况</h3> </a> </td>
+           		</tr>
+            </table>
+        </div>
+        <form action="../Insert_pass" method="post">
+            <button style="background: pink;width: 100px;height: 40px;margin-left: 40px;margin-top:100px;font-size: 15px;border-color: pink;">注销</button>
+        </form>
+    </div>
+
+    <div id="content">
+        <h2 class="biaoti">学生成绩录入</h2>
+        <div id="main">
+        <form action="../Scores" method="post" >
+            <h3>姓名：<input type="text" name="name" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;" /></h3>
+            <h3>学号：<input type="text" name="id" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;" /></h3>
+            <h3>专业：<select id="zy" name="zhuanye" style="background:transparent;border:0.2;width: 160px"/>
+                <option value="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---请选择---</option>
+                <option value="软件工程">软件工程</option>
+                <option value="物联网工程">物联网工程</option>
+                <option value="信息安全">信息安全</option>
+                </select>
+            </h3>
+            <h3> 班级：<select id="bj" name="banji" style="background:transparent;border:0.2;width: 160px" />
+            <option value="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---请选择---</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                </select>
+            </h3>
+            <h3>语文：<input type="text" name="chinese" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;" /></h3>
+            <h3>  数学：<input type="text" name="math" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/></h3>
+            <h3> 英语：<input type="text" name="english" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/></h3>
+            <h3>  体育：<input type="text" name="PE" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/></h3>
+            <input type="submit" value="确认" id="bu"/>
+        </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

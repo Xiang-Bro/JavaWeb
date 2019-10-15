@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>观看直播界面</title>
+</head>
+<body>
+	<img src="" id="receive" style="width: 640px;height: 480px;" alt="">
+
+	<script>
+		var receive_socket = new WebSocket("ws://localhost:8080/Excel/onlineServer");
+		var img = document.getElementById("receive");
+		receive_socket.onmessage=function(info){
+			img.src = info.data;
+		}
+	</script>
+</body>
+</html>

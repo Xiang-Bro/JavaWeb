@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>密码修改界面</title>
+		<script  src="jquery-3.4.0.min.js"> </script>
+		<script>
+			var mailBox = null;
+			var code = null;
+			//检查密码是否合法
+			$(function(){
+				$("#getCode").click(function(){
+					mailBox = $("#mail").val().trim();
+					$.post("../SendMailBox",{mailBox:mailBox},function(data,status){
+						alert(data);
+					});
+				});
+			});
+			function checkMailBox(){
+				var flag = false;
+				//alert("进来了");
+				mailBox = $("#mail").val().trim();
+				code = $("#code").val().trim();
+				$.ajaxSettings.async = false;    
+				$.post("../CheckMailBox", {mailBox:mailBox,code:code}, function(data,status){
+					//alert("进来了");
+					if(data=="true"){
+						flag = true;
+					}else{
+						flag = false;
+					}
+				});   
+				$.ajaxSettings.async = true;
+				return flag;
+			}
+			function checkPassword(){
+				var password = document.getElementById("password").value;
+				var span = document.getElementById("span_password");
+				if(password.length < 8){
+					span.innerHTML = "密码长度过短";
+				}else if (password.length > 16){
+					span.innerHTML = "密码长度过长";
+					return false;
+				}else{
+					span.innerHTML = "密码可用";
+					return true;
+				}
+			}
+			//检查密码是否相同
+			function checkRePassword(){
+				var repassword = document.getElementById("repassword").value;
+				var password = document.getElementById("password").value;
+				var span = document.getElementById("span_repassword");
+				if(repassword == password){
+					span.innerHTML = "";
+					return true;
+				}else{
+					span.innerHTML = "两次密码不一样";
+					return false;
+				}
+			}
+			
+			//提交
+			function checkForm(){
+				var flag = checkPassword() && checkRePassword() && checkMailBox();
+				//alert(checkMailBox());
+				return flag;
+			}
+		</script>
+		<style>
+			*{
+			    margin: 0px;
+			    padding: 0px;
+			}
+			#container {
+			    background-color:rgba(0,0,0,0.4);
+			    width: 450px;
+			    height: 400px;
+			    margin-top: 200px;
+			    margin-left: 500px;
+			    margin-right: 600px;
+			    box-shadow: 12px 12px 20px rgba(255, 255, 194, 0.2);
+			}
+			#container h1{
+			    text-align: center;
+			    color: rgba(250, 235, 215, 0.75);
+			}
+			#containerT{
+			    height: 30px;
+			    margin-left: 80px;
+			    margin-top: 30px;
+			    color: floralwhite
+			}
+			#containerT h3{
+			    margin-left: -15px;
+			    margin-top: 20px
+			}
+			#email{
+			    height: 30px;
+			    margin-left: 50px;
+			
+			    color: floralwhite
+			}
+			#email h3{
+			    margin-left: 15px;
+			    margin-top: 20px
+			}
+			#newpassword{
+			    height: 30px;
+			    margin-left: -10px;
+			    margin-top: -30px;
+			    color: floralwhite
+			}
+			#newpassword h3{
+			    margin-left: 75px;
+			    margin-top: 48px
+			}
+			#newpasswd{
+			    height: 30px;
+			    margin-left: -10px;
+			    margin-top: -30px;
+			    color: floralwhite
+			}
+			#newpasswd h3{
+			    margin-left: 75px;
+			    margin-top: 55px
+			}
+			#captcha{
+				height: 30px;
+				margin-left: -8px;
+				margin-top: -30px;
+				color: floralwhite
+			}
+			#captcha h3{
+				margin-left: 75px;
+				margin-top: 55px
+			}
+			#yes input{
+			    margin-left: 0px;
+			    margin-top: 25px;
+			    width: 60px;
+			    height: 40px;
+			}
+			#yes input:hover{
+			    background-color: rgba(226, 232, 255, 0.66);
+			    height:38px;
+			}
+			video{
+			    position: fixed;
+			    right: 0px;
+			    bottom: 0px;
+			    min-width: 100%;
+			    min-height: 100%;
+			    height: auto;
+			    width: auto;
+			    z-index:-11
+			}
+			source{
+			    min-width: 100%;
+			    min-height: 100%;
+			    height: auto;
+			    width: auto;
+			}
+			.bt{
+			    position:absolute;
+			    top:50px;
+			    left:420px;
+			    font-size: 60px;
+			    color: dimgrey;
+			}
+		</style>
+	</head>
+	<body>
+	<form action="../Reset" method="post" onsubmit="return checkForm()">
+	    <div class="bt"> 学 生 成 绩 管 理 系 统</div>
+	    <div id="container"><h1>找回密码</h1>
+	
+	        <div id="containerT">
+	            <h3>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
+	                <input style="width: 200px;height: 30px;font-size: 20px;color:white;margin-left: 4px;margin-top: -50px;background:transparent;border:0.2" name="username" /></h3>
+	        </div>
+	
+	        <div id="email" onblur="checkEmail()">
+	            <h3>绑&nbsp;定&nbsp;邮&nbsp;箱:
+	                <input id="mail" type="email" name="email" style="width: 200px;height: 30px;font-size: 20px;color:white;margin-left: 5px;margin-top: -50px;background:transparent;border:0.2"/></h3>
+	            <span id="span_email"></span>
+	        </div>
+	
+	        <div id="newpassword">
+	            <h3>输入新密码：
+	                <input type="password" onkeyup="checkPassword()" id="password" name="password" style="width: 200px;height: 30px;font-size: 20px;color:white;margin-left: -10px;margin-top: 0px;background:transparent;border:0.2"/> </h3>
+	            <span id="span_password"></span>
+	        </div>
+	
+	        <div id="newpasswd">
+	            <h3>确&nbsp;认&nbsp;密&nbsp;码：
+	                <input type="password" onkeyup="checkRePassword()()" id="repassword" style="width: 200px;height: 30px;font-size: 20px;color:white;margin-left: -8px;margin-top: -50px;background:transparent;border:0.2"/> </h3>
+	            <span id="span_repassword"></span>
+	        </div>
+	        <div id="captcha">
+	        	<h3>验&nbsp;&nbsp;&nbsp;证&nbsp;&nbsp;&nbsp;码：<input type="text" id = "code" style="width: 125px;height: 30px;font-size: 20px;color:white;margin-left: -2px;margin-top: -50px;background:transparent;border:0.2"/>
+				<input id="getCode" type="button" value="发送验证码" style="width: 70px;height: 30px;"/>  </h3>
+	        </div>
+	
+	        <div align="center" id="yes">
+	            <input style="margin-left: 0px;margin-top: 20px;width: 40px;height: 40px;" type="submit" value="确&nbsp;&nbsp;&nbsp;认" />
+	        </div>
+	
+	    </div>
+	</form>
+	<video autoplay loop muted>
+	    <source src="img/login.mp4" type="video/mp4"  />
+	</video>
+	</body>
+</html>

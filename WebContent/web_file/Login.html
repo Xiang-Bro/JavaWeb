@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script  src="jquery-3.4.0.min.js"> </script>
+    <style>
+    		*{
+			    margin: 0px;
+			    padding: 0px;
+			}
+			
+			#container {
+			    background-color:rgba(0,0,0,0.4);
+			    width: 500px;
+			    height: 300px;
+			    margin-top: 200px;
+			    margin-left: 500px;
+			    margin-right: 600px;
+			    box-shadow: 12px 12px 20px rgba(255, 255, 194, 0.2);
+			}
+			
+			#containerT h1{
+			    text-align: center;
+			    color: rgba(250, 235, 215, 0.75);
+			
+			}
+			
+			.bt{
+			    position:absolute;
+			    top:50px;
+			    left:450px;
+			    font-size: 60px;
+			    color: dimgrey;
+			}
+			
+			.xt{
+			    position:absolute;
+			    top:440px;
+			    left:810px;
+			
+			
+			}
+			 .xt:hover{
+			     color: cornflowerblue;
+			 }
+			
+			 #button input{
+			     margin-left: 0px;
+			     margin-top: 25px;
+			     width: 60px;
+			     height: 40px;
+			
+			 }
+			
+			#button input:hover{
+			    background-color: rgba(226, 232, 255, 0.66);
+			    height:38px;
+			}
+			
+			video{
+			    position: fixed;
+			    right: 0px;
+			    bottom: 0px;
+			    min-width: 100%;
+			    min-height: 100%;
+			    height: auto;
+			    width: auto;
+			    z-index:-11
+			}
+			source{
+			    min-width: 100%;
+			    min-height: 100%;
+			    height: auto;
+			    width: auto;
+			}
+			    	
+    </style>
+    
+</head>
+<body>
+	<form action="../Login" method="post">
+	    <div class="bt"> 学 生 成 绩 管 理 系 统</div>
+	
+		<div id="container">
+		    <div id="containerT"><h1>欢迎登陆</h1></div>
+		
+		
+		    <div style="height: 30px; margin-left: 75px;margin-top: 15px;color: floralwhite"><h2 style="margin-left: 15px;margin-top: 50px">账号:
+		        <input type="text" name="username" style="width: 250px;height: 30px;font-size: 20px;color:white;margin-left: 0px;margin-top: -50px;background:transparent;border:0.2" /></h2>
+		
+		    </div>
+		    <div style="height: 30px; margin-left: 75px;margin-top: 15px;color: floralwhite"><h2 style="margin-left: 15px;margin-top: 50px">密码:
+		        <input type="password" name="password" style="width: 250px;height: 30px;font-size: 20px;color:white;margin-left: 0px;margin-top: -50px;background:transparent;border:0.2" /></h2>
+		
+		    </div>
+		    <div align="center" id="button">
+		       <input  type="submit" value="   登  陆    " />
+		       <a href="Reset.html" style="color: darkgray;text-decoration: none"> <div class="xt">忘记密码？</div> </a>
+		
+		    </div>
+		</div>
+	</form>
+	<video autoplay loop muted>
+	    <source src="img/login.mp4" type="video/mp4"  />
+	</video>
+</body>
+</html>
+

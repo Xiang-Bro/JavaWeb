@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DLMall</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.vi{
+			display: block;
+			width: 640px;
+			height: 480px;
+			border: 1px solid #333;
+			margin: 20px auto 0 auto;
+
+		}
+.header{
+    width: 100%;
+    height: 85px;
+    background-color: #e2231a;
+    position: relative;
+}
+.header img {
+    display: inline-block;
+    padding-left: 30px;
+    height: 80px;
+    vertical-align: bottom;
+
+
+}
+.working {
+    display: inline-block;
+    width: 600px;
+    height: 42px;
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    top: 25px;
+    left: 200px;
+}
+.div {
+	width: 640px;
+	height: 480px;
+	display: block;
+	
+	border: 1px solid #333;
+	margin: 20px auto 0 auto;
+}
+</style>
+</head>
+<body>
+<div th:replace="fragments/shortcut :: shortcut"></div>
+<div class="header">
+    <img src="../../static/images/logo-red.png" alt="">
+    <div class="working"><!-- DLMall商场商家直播系统 --></div>
+</div>
+	<video src="" id="vi" autoplay="autoplay" controls="controls" class="vi"></video>
+	<div class="div"></div>
+	<canvas id="output" style="display: none"></canvas>
+	<script>
+		var back = document.getElementById("output");
+		var video = document.getElementById("vi");
+		var backContent = document.getElementById("output").getContext("2d");
+		setTimeout("init()",10);
+		var socket;
+		var interval;
+		function init(){
+			socket = new WebSocket("ws://localhost:8080/Excel/onlineServer");
+			socket.onopen = onOpen;
+			socket.onclose=onClose;
+		}
+		function onOpen(){
+			clearInterval(interval);
+			interval = setInterval(function(){draw()},1)
+		}
+		
+		function onClose(){init()};
+
+		function draw(){
+
+			backContent.drawImage(video,0,0,back.width,back.height);
+			socket.send(back.toDataURL("image/jpeg",0.5));
+		
+		}
+
+		navigator.mediaDevices.getUserMedia({ audio: false, video: true})
+			.then(function(mediaStream) {
+  			var video = document.querySelector('video');
+  			var video = document.getElementById("vi");
+  			video.srcObject = mediaStream;
+  			video.onloadedmetadata = function(e) {
+    			video.play();
+  				};
+			})
+			.catch(function(err) { console.log(err.name + ": " + err.message); });
+			
+		draw();
+		
+
+
+		
+	</script>
+</body>
+</html>

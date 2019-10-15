@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息管理系统</title>
+    <script type="text/javascript" src="bootstrap.js"></script>
+
+    <script>
+       //省市
+        var province = [["--请选择--"],["邯郸市","石家庄市","保定市","唐山市","张家口市"],["徐州市","南京市","无锡市","苏州市"],["长沙市","湘潭市","株洲市"]]
+        function selectProvince(){
+
+            var citySelect = document.getElementById("city");
+            citySelect.options.length = 0;//初始化
+
+            var pro = document.getElementById("pro");
+            var value = pro.value;
+
+            var cities = province[value];
+
+            for(var i =0; i < cities.length; i++){
+
+                var cityText = cities[i];
+                //创建节点<option></option>
+                var option1 = document.createElement("option");
+                //添加文本内容
+                var textNode = document.createTextNode(cityText);
+
+                option1.appendChild(textNode);
+                //与城市选择select绑定
+                citySelect.appendChild(option1);
+            }
+        } 
+     
+       function checkPhone(){
+        	var phone = document.getElementById('phone').value;
+        	var reg = /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/;
+        	if(!(reg.test(phone))){
+            	alert("请输入正确电话号码");
+                return false;
+            }
+            return true;
+        }
+        
+		function checkAge(){
+        	var age = document.getElementById("age").value;
+        	//获取今年年份
+        	var date=new Date;
+ 			var curYear=date.getFullYear(); 
+ 			//获取用户输入的出生日期
+ 			var bir = document.getElementById("bir").value;
+ 			var year = bir.substring(0,4);
+ 			
+        	if( age<5 || age >20){
+        		alert("正确年龄范围6到19岁");
+                return false;
+        	}
+        	if(age != (curYear-year)){
+        		alert("确认年龄和出生年月");
+        		return false;
+        	}
+        	return true;
+        }
+        
+        function checkBir(){
+        	var bir = document.getElementById("bir").value;
+        	//验证出生年月和身份证中信息一致
+        	var id = document.getElementById("idcard").value;
+        	var birth = id.substring(6,14);
+        	if(bir.length != 8){
+        		alert("请注意出生年月的正确格式");  
+			    return  false;
+        	}
+        	if(bir != birth){
+        		alert("注意身份证信息和出生年月的一致");
+        		return false;
+        	}
+        	return true;
+        }
+        
+        function checkId_card(){
+        	var id = document.getElementById("idcard");
+        	var reg =  /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/; 
+			if(reg.test(id) != false) {
+			    alert("身份证输入不合法");  
+			    return  false;  
+			}  
+			return true;
+        }
+        
+        function checkQq(){
+        	var qq = document.getElementById("qq").value;
+        	var reg = /^[1-9][0-9]{4,9}$/gim;
+			if (!(reg.test(qq))) {
+				alert('请输入正确的QQ号码');
+			    return false;
+			}
+			return true;
+        }
+        
+        function checkForm(){
+            var flag = checkAge() &&checkPhone() &&checkBir() &&checkId_card() &&checkQq();
+            return flag;
+        }
+
+    </script>
+    
+    <style>
+    	a:hover{
+		    color: #2e56c3;
+		
+		}
+		a{
+		    color: rgba(1, 2, 6, 0.8);
+		}
+		button:hover{
+		    color: #fffdf4;
+		
+		
+		}
+		.container{
+		    border:0 solid darkslategray;
+		    border-radius:30px;
+		    width: 95%;
+		    height: 700px;
+		    background-color: lightblue;
+		    background-color: rgba(195, 208, 212, 0.5);
+		    margin-left: 40px;
+		    margin-top: 25px;
+		    box-shadow: 5px 5px 20px rgba(200, 214, 255, 0.72);
+		}
+		#links{
+		    border-right: 1.5px solid black;
+		    height: 700px;
+		    float: left;
+		}
+		#content{
+		    float: right;
+		    background-color: rgba(208, 212, 202, 0.2);
+		    width: 87%;
+		    height: 700px;
+		    border-radius: 0 30px 30px 0;
+		}
+		.img{
+		    margin-left: 13px;
+		    margin-top: 10px;
+		    width: 150px;
+		    height: 150px;
+		    border-radius: 30px;
+		}
+		.biaoti{
+		    font-size: 35px;
+		    text-align: center;
+		}
+		.main{
+		    margin-left: 260px;
+		}
+		
+		#bu input:hover{
+		    color: #fffdf4;
+		}
+		#bir::-webkit-input-placeholder{
+		    color: rgba(3, 13, 34, 0.84);
+		}
+    	
+    </style>
+
+</head>
+
+<body bgcolor="#a9a9a9" background="img/home.jpg">
+	
+	<div class="container" >
+	    <!-- 页面导航 -->
+	    <div id="links">
+	        <img class="img" src="img/logo.jpg" />
+	        <div class="box" style="margin-left: 35px;">
+	            <table width="149.5px" height="200px">
+	                <tr>
+	                    <td> <a href="Insert_news.html" style="text-decoration: none;"> <h3>A:添加学生信息</h3></a> </td>
+	                </tr>
+	                <tr>
+	                    <td> <a href="Scores.html" style="text-decoration: none;"> <h3>B:添加成绩</h3> </a> </td>
+	                </tr>
+	                <tr>
+	                    <td> <a href="Find.jsp" style="text-decoration: none;"> <h3>C:查找成绩</h3> </a> </td>
+	                </tr>
+	                <tr>
+	                    <td> <a href="Pic.jsp" style="text-decoration: none;"> <h3>D:成绩柱状图</h3> </a> </td>
+	                </tr>
+	                <tr>
+		                <td> <a href="Print.jsp" style="text-decoration: none;"> <h3>E:学生报表</h3> </a> </td>
+		            </tr>
+		            <tr>
+	               		<td> <a href="Reward.html" style="text-decoration: none;"> <h3>F:奖惩情况</h3> </a> </td>
+	           		</tr>
+	            </table>
+	        </div>
+			<form action="../Insert_pass" method="post">
+	        	<button style="background: pink;width: 100px;height: 40px;margin-left: 40px;margin-top:100px;font-size: 15px;border-color: pink;">注销</button>
+	        </form>
+	    </div>
+	
+	    <div id="content">
+	
+	        <h2 class="biaoti"> 学生信息录入 </h2>
+	        <br /><br />
+	        <div class="main" style="width: 1000px;height: 300px;">
+	        <form action="../Insert_news" method="post" onsubmit="return checkForm()">
+	
+	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名：<input type="text" name="username" id="name" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                出生年月：<input type="text" name="birthday" id="bir" placeholder="(*格式为19990514)" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/><br /><br /></h3>
+	
+	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年龄：<input type="text" name="age" id="age" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	            身份证号：<input type="text" name="id_card" id="idcard" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/><br /><br /></h3>
+	
+	
+	           <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ号: <input type="text" name="qq" id="qq" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	               手&nbsp; 机&nbsp; 号:&nbsp; <input type="tel" name="tel" id="phone" style="background:transparent;border:0.2;width: 160px;height: 25px;font-size: 20px;"/><br /><br /></h3>
+	
+	           <h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍贯：<select id="pro" onchange="selectProvince()" name="address" style="background:transparent;border:0.2">
+	            <option value="0">---请选择---</option>
+	            <option value="1">河北省</option>
+	            <option value="2">江苏省</option>
+	            <option value="3">湖南省</option>
+	        </select>
+	            <select id="city" style="background:transparent;border: 0.2">
+	                <option>---请选择---</option>
+	            </select>
+	               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	               <div style="margin-top: -30px;margin-left: 492px"> 性别：<input type="radio" name="sex" value="男" />男
+	                   <input type="radio" name="sex" value="女" />女</div>
+	
+	
+	
+	               <br /></h3>
+	
+	
+	            <h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专业：<select id="zy" name="zhuanye" style="background:transparent;border:0.2">
+	            <option value="-1">---请选择---</option>
+	            <option value="软件工程">软件工程</option>
+	            <option value="物联网工程">物联网工程</option>
+	            <option value="信息安全">信息安全</option>
+	            </select>
+	
+	            <div style="margin-top: -30px;margin-left: 460px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;班级：<select id="bj"  name="banji" style="background:transparent;border:0.2">
+	                <option value="-1">---请选择---</option>
+	                <option value="1">01</option>
+	                <option value="2">02</option>
+	                <option value="3">03</option>
+	            </select>
+	            </h3>
+	
+	            <div  id="bu" style="margin-top: -60px;margin-left: 290px">
+	            	<input type="submit" value="保存" style="background: pink;width: 100px;height: 40px;margin-left: 40px;margin-top:100px;font-size: 15px;border-color: pink;"/>
+	            </div>
+	        </form>
+	        <form action="../News_show">
+	         <div style="width:100px;height:100px;" >
+	              <input type="submit" value="查看全部信息" style="background: pink;width: 100px;height: 40px;margin-left: 600px;">
+	         </div>
+	         </form>
+	    </div>
+	    </div> 
+	</div>
+
+</body>
+</html>
